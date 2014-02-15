@@ -1,9 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="arclient">
 <head>
-    <title></title>
+    <title>Arduino Client</title>
+    <link href="css/redmond/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="js/mon.js"></script>
+    <style>
+        #data {
+            position: absolute;
+            left: 240px;
+            top: 140px;
+            z-index: -1;
+            width: 1080px;
+            height: 720px;
+            background-repeat: no-repeat;
+            background-image:url('http://nagios.cloudopscenter.net:8080/dctemps/images/201dc1.jpg');
+        }
+        .boxes {
+            width: 100px;
+            height: 15px;
+            padding: 5px;
+            border: 1px darkblue solid;
+        }
+    </style>
 </head>
 <body>
+Hello.
+<script language="javascript">
+    var $screenConfig;
+    $(document).ready(getSensors());
 
+    setInterval(function() { getSensors() }, 10000);
+</script>
+<div id="data"></div>
 </body>
 </html>
