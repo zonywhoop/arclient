@@ -3,7 +3,7 @@
  */
 function getSensors() {
     var cDate = Date();
-    $.getJSON('http://127.0.0.1:9000/getsensors/'+screenName, function(jd) {
+    $.getJSON(reportServer+'/getsensors/'+screenName, function(jd) {
         var items = [];
         $.each ( jd, function( key, val) {
             var idname = key.replace(':', '');

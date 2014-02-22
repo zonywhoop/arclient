@@ -38,6 +38,7 @@ if ( !isset($_GET['screen']) ) {
     </script>
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="js/local.js"></script>
     <script src="js/mon.js"></script>
     <style>
         #data {
