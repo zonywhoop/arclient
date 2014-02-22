@@ -1,1 +1,0 @@
-{"name":"Birmingham 201 Summit","image":"http:\/\/nagios.cloudopscenter.net:8080\/dctemps\/images\/201dc1.jpg","width":"1080px","height":"720px","locations":{"A1":{"top":"62","left":"512"},"A5":{"top":"-19","left":"304"},"B1":{"top":"67","left":"166"},"B7":{"top":"93","left":"580"},"B3":{"top":"121","left":"449"},"C4":{"top":"146","left":"160"}}}
