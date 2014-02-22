@@ -43,8 +43,8 @@ if ( !isset($_GET['screen']) ) {
     <style>
         #data {
             position: absolute;
-            left: 240px;
-            top: 140px;
+            left: 0px;
+            top: 0px;
             z-index: -1;
             background-repeat: no-repeat;
         }
