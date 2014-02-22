@@ -54,6 +54,11 @@ if ( !isset($_GET['screen']) ) {
             padding: 5px;
             border: 1px darkblue solid;
         }
+        #updatestatus {
+            position: absolute;
+            left: 10px;
+            top: 680px;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +66,7 @@ if ( !isset($_GET['screen']) ) {
     $(document).ready(setupScreen());
     setInterval(function() { getSensors() }, 10000);
 </script>
-<div class="ui-widget" style="width:600px;">
+<div class="ui-widget" id="updatestatus" style="width:600px;">
     <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px;" id="status">
         <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;" id="statusIcon"></span>
         <span id="statusText">Never Updated!</span>
