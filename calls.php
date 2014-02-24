@@ -36,6 +36,18 @@ switch ( $_REQUEST['cmd'] ) {
         $screenConfig = getScreenConfig($_GET['screen']);
         sendJson($screenConfig);
         break;
+    case "fetchData":
+        $screenConfig = json_decode(getScreenConfig($_GET['screen']), true);
+        if ( !array_key_exists('serverURL', $screenConfig) ) {
+           sendJson(array('ERROR'=>'Config missing serverURL'));
+           exit;
+        }
+        if ( ($jsonData = file_get_contents($screenConfig['serverURL'])) === FALSE ) {
+            sendJson(array('ERROR'=>'Failed to retrieve data'));
+            exit;
+        }
+        sendJson($jsonData);
+        break;
     default:
         print "ERROR: Invalid CMD\n";
         exit;
@@ -43,7 +55,11 @@ switch ( $_REQUEST['cmd'] ) {
 
 function sendJson($jsonToSend) {
     header('Content-Type: application/json');
-    echo $jsonToSend;
+    if ( is_array($jsonToSend) ) {
+        echo json_encode($jsonToSend);
+    } else {
+        echo $jsonToSend;
+    }
 }
 
 function getScreenConfig($screenName) {

@@ -28,17 +28,15 @@ if ( !isset($_GET['screen']) ) {
 
 ?>
 <!DOCTYPE html>
-<html ng-app="arclient">
+<html>
 <head>
     <title>Arduino Client</title>
     <link href="css/redmond/jquery-ui-1.10.4.custom.css" rel="stylesheet">
     <script language="javascript">
         var screenName="<?=$_GET['screen']?>";
-        var screenConfig;
     </script>
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="js/local.js"></script>
     <script src="js/mon.js"></script>
     <style>
         #data {
@@ -55,20 +53,22 @@ if ( !isset($_GET['screen']) ) {
             border: 1px darkblue solid;
         }
         #updatestatus {
-            position: absolute;
-            left: 10px;
-            top: 680px;
+            width:360px;
         }
     </style>
 </head>
 <body>
 <script language="javascript">
+    /**
+     * The below sets up an inline function to run once the page is ready and finished loading
+     */
     $(document).ready(setupScreen());
     setInterval(function() { getSensors() }, 10000);
 </script>
-<div class="ui-widget" id="updatestatus" style="width:600px;">
+
+<div class="ui-widget" id="updatestatus">
     <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px;" id="status">
-        <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;" id="statusIcon"></span>
+        <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em; margin-bottom: 10px;" id="statusIcon"></span>
         <span id="statusText">Never Updated!</span>
     </div>
 </div>
