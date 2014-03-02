@@ -25,17 +25,27 @@ function getSensors() {
         } else {
             $.each ( jd, function( key, val) {
                 var idname = key.replace(':', '');
+                var boxVal = val['v'];
+                var boxSuf = val['s'];
+                var boxType = val['n'];
+                var boxColor = val['c'];
                 if ( $("#"+idname).length == 0 ) {
                     // Sensor does not yet exist on the screen so create it, make it draggable, and (if it existed before) restore it's position.
-                    $("#data").append('<div id="' + idname + '" class="boxes">' + val + "</div>" );
+                    $("#data").append('<div id="' + idname + '" class="boxes">' + boxVal + boxSuf + "</div>" );
                     $("#"+idname).draggable({containment: "parent"}, {delay: 300}, {stop: function (event, ui) { handleDrag(event, ui); }});
                     if ( typeof screenConfig.locations[idname] !== 'undefined' ) {
                         // We have a restorable position in our screenConfig so restore it to it's last position.
-                        $("#"+idname).css({'position':'relative', 'top':screenConfig.locations[idname].top+'px', 'left':screenConfig.locations[idname].left+'px'});
+                        $("#"+idname).css({
+                            'position':'relative',
+                            'top':screenConfig.locations[idname].top+'px',
+                            'left':screenConfig.locations[idname].left+'px',
+                            'background-color': boxColor
+                        });
                     }
                 } else {
                     // Sensor already exists on the screen so we are just going to update it's value.
-                    $("#"+idname).html(val);
+                    $("#"+idname).html(boxVal + boxSuf);
+                    $("#"+idname).css('background-color', boxColor);
                 }
                 errorText=undefined;
             });

@@ -51,6 +51,7 @@ if ( !isset($_GET['screen']) ) {
             height: 15px;
             padding: 5px;
             border: 1px darkblue solid;
+            color: #ffffff;
         }
         #updatestatus {
             width:360px;
