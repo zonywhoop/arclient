@@ -43,7 +43,7 @@ if ( !isset($_GET['screen']) ) {
             position: absolute;
             left: 0px;
             top: 0px;
-            z-index: -1;
+            z-index: 1;
             background-repeat: no-repeat;
         }
         .boxes {
@@ -52,9 +52,11 @@ if ( !isset($_GET['screen']) ) {
             padding: 5px;
             border: 1px darkblue solid;
             color: #ffffff;
+            z-index: 3;
         }
         #updatestatus {
             width:360px;
+            z-index: 2;
         }
     </style>
 </head>

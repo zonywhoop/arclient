@@ -29,9 +29,10 @@ function getSensors() {
                 var boxSuf = val['s'];
                 var boxType = val['n'];
                 var boxColor = val['c'];
+                var boxLocation = val['l'];
                 if ( $("#"+idname).length == 0 ) {
                     // Sensor does not yet exist on the screen so create it, make it draggable, and (if it existed before) restore it's position.
-                    $("#data").append('<div id="' + idname + '" class="boxes">' + boxVal + boxSuf + "</div>" );
+                    $("#data").append('<div id="' + idname + '" class="boxes" data-toggle="tooltip" title="'+boxLocation+'">' + boxVal + boxSuf + "</div>" );
                     $("#"+idname).draggable({containment: "parent"}, {delay: 300}, {stop: function (event, ui) { handleDrag(event, ui); }});
                     if ( typeof screenConfig.locations[idname] !== 'undefined' ) {
                         // We have a restorable position in our screenConfig so restore it to it's last position.
@@ -45,6 +46,13 @@ function getSensors() {
                 } else {
                     // Sensor already exists on the screen so we are just going to update it's value.
                     $("#"+idname).html(boxVal + boxSuf);
+                    if ( $("#"+idname).attr('title') != boxLocation ) {
+                        $("#"+idname).attr('title', boxLocation)
+                            .tooltip('fixTitle')
+                            .data('bs.tooltip')
+                            .$tip.find('.tooltip-inner')
+                            .text(boxLocation);
+                    }
                     $("#"+idname).css('background-color', boxColor);
                 }
                 errorText=undefined;
@@ -55,6 +63,9 @@ function getSensors() {
                 $("#statusIcon").removeClass("ui-icon-alert");
                 $("#statusIcon").addClass("ui-icon-info");
             }
+            $('[data-toggle="tooltip"]').tooltip({
+                'placement': 'bottom'
+            });
             $("#statusText").html("Last update succeeded on <br /><small>" + cDate.toString() + "</small>");
         }
     })
