@@ -30,10 +30,8 @@ function getSensors() {
                 if ( $("#"+idname).length == 0 ) {
                     // Sensor does not yet exist on the screen so create it, make it draggable, and (if it existed before) restore it's position.
                     //$("#data").append('<div id="' + idname + '" class="boxes" data-toggle="tooltip" title="'+boxLocation+'">' + boxVal + boxSuf + "</div>" );
-                    $("#data").append('<div class="row">' +
-                        ' <div id="' + idname + '" class="boxes" data-toggle="popover" title="'+boxLocation+'"'+
-                        ' data-html="true" data-content="<img src=\''+val['i']+'\'>">' + boxVal + boxSuf + '</div>'+
-                        '</div>');
+                    $("#data").append('<div id="' + idname + '" class="boxes" data-toggle="popover" title="'+boxLocation+'"'+
+                        ' data-html="true" data-content="<img src=\''+val['i']+'\'>">' + boxVal + boxSuf + '</div>');
                     $("#data-mobile").append('<div class="panel panel-default">'+
                         '<div id="'+idname+'-label" class="panel-heading label-mobile">'+boxLocation+'</div>'+
                         '<div id="'+idname+'-data" class="panel-body data-mobile">'+boxVal + boxSuf+'</div>'+
