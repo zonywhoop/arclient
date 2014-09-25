@@ -6,6 +6,8 @@
  * Time: 1:00 PM
  */
 define('CONFIG_DIR', 'configs/');
+if ( is_file(CONFIG_DIR.'sitedefaults.php'))
+    require_once(CONFIG_DIR.'sitedefaults.php');
 
 function getScreens() {
     if (is_dir(CONFIG_DIR)) {
@@ -30,35 +32,19 @@ if ( !isset($_GET['screen']) ) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Arduino Client</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?=(isset($site_title) ? $site_title : 'Arduino Client')?></title>
     <link href="css/redmond/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+    <link href="css/normalize.css" rel="stylesheet">
     <script language="javascript">
         var screenName="<?=$_GET['screen']?>";
     </script>
     <script src="js/jquery-1.10.2.js"></script>
     <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="css/mon.css" rel="stylesheet">
     <script src="js/mon.js"></script>
-    <style>
-        #data {
-            position: absolute;
-            left: 0px;
-            top: 0px;
-            z-index: 1;
-            background-repeat: no-repeat;
-        }
-        .boxes {
-            width: 50px;
-            height: 15px;
-            padding: 5px;
-            border: 1px darkblue solid;
-            color: #ffffff;
-            z-index: 3;
-        }
-        #updatestatus {
-            width:360px;
-            z-index: 2;
-        }
-    </style>
 </head>
 <body>
 <script language="javascript">
@@ -68,13 +54,27 @@ if ( !isset($_GET['screen']) ) {
     $(document).ready(setupScreen());
     setInterval(function() { getSensors() }, 10000);
 </script>
-
-<div class="ui-widget" id="updatestatus">
-    <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px;" id="status">
-        <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em; margin-bottom: 10px;" id="statusIcon"></span>
-        <span id="statusText">Never Updated!</span>
+<div class="container-fluid" id="container">
+    <div id="background"></div>
+    <div id="data">
+        <div class="ui-widget" id="updatestatus">
+            <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px;" id="status">
+                <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em; margin-bottom: 10px;"></span>
+                <span id="statusText" class="statusText">Never Updated!</span>
+            </div>
+        </div>
+    </div>
+    <div id="data-mobile">
+        <div class="page-header">
+            <h1>Screen: <?=$_GET['screen']?></h1>
+        </div>
+        <div class="ui-widget" id="updatestatusmobile">
+            <div class="ui-state-highlight ui-corner-all" style="margin-top: 10px;" id="statusMobile">
+                <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em; margin-bottom: 10px;"></span>
+                <span id="statusMobileText" class="statusText">Never Updated!</span>
+            </div>
+        </div>
     </div>
 </div>
-<div id="data"></div>
 </body>
 </html>

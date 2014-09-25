@@ -1,0 +1,52 @@
+#background {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+#data {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    z-index: 1;
+    background-repeat: no-repeat;
+}
+#data-mobile {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: none;
+}
+.boxes {
+    width: 60px;
+    text-align: center;
+    border: 1px darkblue solid;
+    color: #ffffff;
+    z-index: 3;
+}
+#updatestatus {
+    width:360px;
+    z-index: 2;
+}
+#updatestatusmobile {
+    width: 100%;
+    font-size: 10px;
+}
+.data-mobile {
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    #background {
+        display: none;
+    }
+    #data-mobile {
+        display: block;
+        width: 100%;
+    }
+    #data {
+        display: none;
+    }
+}
