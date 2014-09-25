@@ -104,11 +104,11 @@ function setupScreen() {
             if ( key == 'name'  ) {
                 $("#screenName").html(val);
             } else if ( key == 'image' ) {
-                $("#background").css('background-image', "url("+val+")");
+                $("#data").css('background-image', "url("+val+")");
             } else if ( key == 'width' ) {
-                $("#background").css('width', val);
+                $("#data").css('width', val);
             } else if ( key == 'height' ) {
-                $("#background").css('height', val);
+                $("#data").css('height', val);
             }
         });
         screenConfig = jd; // Store the json style data in our screenConfig global variable for later use

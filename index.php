@@ -55,7 +55,6 @@ if ( !isset($_GET['screen']) ) {
     setInterval(function() { getSensors() }, 10000);
 </script>
 <div class="container-fluid" id="container">
-    <div id="background"></div>
     <div id="data">
         <div class="ui-widget" id="updatestatus">
             <div class="ui-state-highlight ui-corner-all" style="margin-top: 20px;" id="status">
