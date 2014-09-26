@@ -34,15 +34,17 @@ if ( !isset($_GET['screen']) ) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=(isset($site_title) ? $site_title : 'Arduino Client')?></title>
-    <link href="css/redmond/jquery-ui-1.10.4.custom.css" rel="stylesheet">
     <link href="css/normalize.css" rel="stylesheet">
     <script language="javascript">
         var screenName="<?=$_GET['screen']?>";
     </script>
-    <script src="js/jquery-1.10.2.js"></script>
-    <script src="js/jquery-ui-1.10.4.custom.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.structure.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.theme.min.css" rel="stylesheet">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script>
     <link href="css/mon.css" rel="stylesheet">
     <script src="js/mon.js"></script>
 </head>

@@ -17,7 +17,8 @@
 
 $screenConfig = Array(
     'name' => "My Screen",
-    'serverURL' => 'http://localhost:8000/getsensors/screenname'
+    'serverURL' => 'http://localhost:8000/getsensors/screenname',
+    'graphiteURL' => 'http://localhost:8001/render/',
     'image' => "http://nagios.cloudopscenter.net:8080/dctemps/images/201dc1.jpg",
     'width' => '1080px',
     'height' => '720px',

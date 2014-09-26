@@ -10,6 +10,8 @@
  */
 
 define('CONFIG_DIR', 'configs/');
+if ( is_file(CONFIG_DIR.'sitedefaults.php'))
+    require_once(CONFIG_DIR.'sitedefaults.php');
 
 if ( !isset($_REQUEST['cmd']) ) {
     print "ERROR: No CMD\n";
@@ -37,7 +39,7 @@ switch ( $_REQUEST['cmd'] ) {
         sendJson($screenConfig);
         break;
     case "fetchData":
-        $screenConfig = json_decode(getScreenConfig($_GET['screen']), true);
+        $screenConfig = getArrayScreenConfig($_GET['screen']);
         if ( !array_key_exists('serverURL', $screenConfig) ) {
            sendJson(array('ERROR'=>'Config missing serverURL'));
            exit;
@@ -47,6 +49,14 @@ switch ( $_REQUEST['cmd'] ) {
             exit;
         }
         sendJson($jsonData);
+        break;
+    case "fetchGraph":
+        $screenConfig = getArrayScreenConfig($_GET['screen']);
+        if (!array_key_exists('graphiteURL', $screenConfig)) {
+            print "Error: Config missing graphiteURL<br />\n";
+            exit;
+        }
+        print file_get_contents($screenConfig['graphiteURL'].'?target='.$_GET['sensor'].$graphitePrefs);
         break;
     default:
         print "ERROR: Invalid CMD\n";
@@ -69,6 +79,10 @@ function getScreenConfig($screenName) {
         exit;
     }
     return(file_get_contents($fileName));
+}
+
+function getArrayScreenConfig($screenName) {
+    return(json_decode(getScreenConfig($screenName), true));
 }
 
 function saveScreenConfig($screenName, $screenConfig) {

@@ -29,40 +29,40 @@ function getSensors() {
                 var boxLocation = val['l'];
                 if ( $("#"+idname).length == 0 ) {
                     // Sensor does not yet exist on the screen so create it, make it draggable, and (if it existed before) restore it's position.
-                    //$("#data").append('<div id="' + idname + '" class="boxes" data-toggle="tooltip" title="'+boxLocation+'">' + boxVal + boxSuf + "</div>" );
                     $("#data").append('<div id="' + idname + '" class="boxes" data-toggle="popover" title="'+boxLocation+'"'+
-                        ' data-html="true" data-content="<img src=\''+val['i']+'\'>">' + boxVal + boxSuf + '</div>');
+                        ' data-html="true" data-content="<img src=\'calls.php?screen='+screenName+'&cmd=fetchGraph&sensor='+val['i']+'\'>">' + boxVal + boxSuf + '</div>');
+                    // Sensor divs for Mobile view
                     $("#data-mobile").append('<div class="panel panel-default">'+
                         '<div id="'+idname+'-label" class="panel-heading label-mobile">'+boxLocation+'</div>'+
+                        '<div id="'+idname+'-graph" class="panel-body" style="display:none" ><img src=\'calls.php?screen='+screenName+'&cmd=fetchGraph&sensor='+val['i']+'\'></div>'+
                         '<div id="'+idname+'-data" class="panel-body data-mobile">'+boxVal + boxSuf+'</div>'+
                         '</div>');
+                    // Enable jquery-ui draggable for big "map" view
                     $("#"+idname).draggable({containment: "parent"}, {delay: 300}, {stop: function (event, ui) { handleDrag(event, ui); }});
+                    // Enable jquery-toggle for mobile div view
+                    $("#"+idname+'-label').click(function() { $("#"+idname+'-graph').toggle(); });
+                    // if an existing location definition exists then apply it to the new map div
                     if ( typeof screenConfig.locations[idname] !== 'undefined' ) {
                         // We have a restorable position in our screenConfig so restore it to it's last position.
                         $("#"+idname).css({
-                            'position':'relative',
+                            'position':'absolute',
                             'top':screenConfig.locations[idname].top+'px',
                             'left':screenConfig.locations[idname].left+'px',
                             'background-color': boxColor
                         });
                     }
+                    // Enable popover for any newly created divs with the popover data tag
+                    $('[data-toggle="popover"]').popover({
+                        'placement': 'bottom'
+                    });
                 } else {
                     // Sensor already exists on the screen so we are just going to update it's value.
                     $("#"+idname).html(boxVal + boxSuf);
                     $("#"+idname).css('background-color', boxColor);
+                    // Update value for mobile divs
                     $("#"+idname+'-data').html(boxVal+boxSuf);
                     $("#"+idname+'-data').css('background-color', boxColor);
                     $("#"+idname+'-label').html(boxLocation);
-                    /*
-                    if ( $("#"+idname).attr('title') != boxLocation ) {
-                        $("#"+idname).attr('title', boxLocation)
-                            .tooltip('fixTitle')
-                            .data('bs.tooltip')
-                            .$tip.find('.tooltip-inner')
-                            .text(boxLocation);
-                    }
-                    */
-
                 }
                 errorText=undefined;
             });
@@ -70,14 +70,9 @@ function getSensors() {
                 $(".ui-state-error").removeClass("ui-state-error").addClass("ui-state-highlight");
                 $(".ui-icon").removeClass("ui-icon-alert").addClass("ui-icon-info");
             }
-            //$('[data-toggle="tooltip"]').tooltip({
-            //    'placement': 'bottom'
-            //});
-            $('[data-toggle="popover"]').popover({
-                'placement': 'bottom'
-            });
-            $(".statusText").html("Last update succeeded on <br /><small>" + cDate.toString() + "</small>");
         }
+        // Set our screen status to successfull update
+        $(".statusText").html("Last update succeeded on <br /><small>" + cDate.toString() + "</small>");
     })
         .fail(function() {
             $(".ui-state-highlight").addClass("ui-state-error").removeClass("ui-state-highlight");

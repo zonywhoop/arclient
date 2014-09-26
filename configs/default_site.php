@@ -12,3 +12,4 @@
 
 // Sets the browser title
 $site_title = 'Arduino Client';
+$graphitePrefs = '&height=150&width=150&format=png&hideLegend=true&from=-15min';
