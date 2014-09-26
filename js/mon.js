@@ -48,24 +48,22 @@ function getSensors() {
                             'position':'absolute',
                             'top':screenConfig.locations[idname].top+'px',
                             'left':screenConfig.locations[idname].left+'px',
-                            'background-color': boxColor
                         });
                     }
                     // Enable popover for any newly created divs with the popover data tag
                     $('[data-toggle="popover"]').popover({
                         'placement': 'bottom'
                     });
-                } else {
-                    // Sensor already exists on the screen so we are just going to update it's value.
-                    $("#"+idname).html(boxVal + boxSuf);
-                    $("#"+idname).css('background-color', boxColor);
-                    // Update value for mobile divs
-                    $("#"+idname+'-data').html(boxVal+boxSuf);
-                    $("#"+idname+'-data').css('background-color', boxColor);
-                    $("#"+idname+'-label').html(boxLocation);
                 }
-                errorText=undefined;
+                // Sensor already exists on the screen so we are just going to update it's value.
+                $("#"+idname).html(boxVal + boxSuf);
+                $("#"+idname).css('background-color', boxColor);
+                // Update value for mobile divs
+                $("#"+idname+'-data').html(boxVal+boxSuf);
+                $("#"+idname+'-data').css('background-color', boxColor);
+                $("#"+idname+'-label').html(boxLocation);
             });
+            errorText=undefined;
             if ( $("#status").hasClass("ui-state-error") ) {
                 $(".ui-state-error").removeClass("ui-state-error").addClass("ui-state-highlight");
                 $(".ui-icon").removeClass("ui-icon-alert").addClass("ui-icon-info");
