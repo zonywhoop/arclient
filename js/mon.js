@@ -58,9 +58,11 @@ function getSensors() {
                 // Sensor already exists on the screen so we are just going to update it's value.
                 $("#"+idname).html(boxVal + boxSuf);
                 $("#"+idname).css('background-color', boxColor);
+                $("#"+idname).css("color", isDark($(this).css("background-color")) ? 'white' : 'black');
                 // Update value for mobile divs
                 $("#"+idname+'-data').html(boxVal+boxSuf);
                 $("#"+idname+'-data').css('background-color', boxColor);
+                $("#"+idname+'-data').css("color", isDark($(this).css("background-color")) ? 'white' : 'black');
                 $("#"+idname+'-label').html(boxLocation);
             });
             errorText=undefined;
@@ -113,4 +115,17 @@ function setupScreen() {
 
     });
     getSensors();
+}
+
+/**
+ * This function determins if the input color is dark or not
+ * @param color
+ * @returns {boolean}
+ */
+function isDark( color ) {
+    var match = /rgb\((\d+).*?(\d+).*?(\d+)\)/.exec(color);
+    return parseFloat(match[1])
+        + parseFloat(match[2])
+        + parseFloat(match[3])
+        < 3 * 256 / 2; // r+g+b should be less than half of max (3 * 256)
 }

@@ -23,11 +23,12 @@ function getScreens() {
     }
 }
 
-if ( !isset($_GET['screen']) ) {
+if ( !isset($_GET['screen']) && is_file($_GET['screen']."_screen.php") ) {
     getScreens();
     exit;
 }
 
+$curScreen = $_GET['screen'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@ if ( !isset($_GET['screen']) ) {
     <title><?=(isset($site_title) ? $site_title : 'Arduino Client')?></title>
     <link href="css/normalize.css" rel="stylesheet">
     <script language="javascript">
-        var screenName="<?=$_GET['screen']?>";
+        var screenName="<?php echo $curScreen; ?>";
     </script>
     <link href="css/jquery-ui.min.css" rel="stylesheet">
     <link href="css/jquery-ui.structure.min.css" rel="stylesheet">
@@ -47,6 +48,7 @@ if ( !isset($_GET['screen']) ) {
     <script src="js/bootstrap.min.js"></script>
     <link href="css/mon.css" rel="stylesheet">
     <script src="js/mon.js"></script>
+    <?php if (is_file("css/".$curScreen.".css") ) { echo "<link href=\"css/".$curScreen.".css\" rel=\"stylesheet\">\n"; } ?>
 </head>
 <body>
 <script language="javascript">
@@ -67,7 +69,7 @@ if ( !isset($_GET['screen']) ) {
     </div>
     <div id="data-mobile">
         <div class="page-header">
-            <h1>Screen: <?=$_GET['screen']?></h1>
+            <h1>Screen: <?php echo $curScreen; ?></h1>
         </div>
         <div class="ui-widget" id="updatestatusmobile">
             <div class="ui-state-highlight ui-corner-all" style="margin-top: 10px;" id="statusMobile">
