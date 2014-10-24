@@ -58,11 +58,11 @@ function getSensors() {
                 // Sensor already exists on the screen so we are just going to update it's value.
                 $("#"+idname).html(boxVal + boxSuf);
                 $("#"+idname).css('background-color', boxColor);
-                $("#"+idname).css("color", isDark($(this).css("background-color")) ? 'white' : 'black');
+                $("#"+idname).css("color", isDark($("#"+idname).css("background-color")) ? 'white' : 'black');
                 // Update value for mobile divs
                 $("#"+idname+'-data').html(boxVal+boxSuf);
                 $("#"+idname+'-data').css('background-color', boxColor);
-                $("#"+idname+'-data').css("color", isDark($(this).css("background-color")) ? 'white' : 'black');
+                $("#"+idname+'-data').css("color", isDark($("#"+idname+'-data').css("background-color")) ? 'white' : 'black');
                 $("#"+idname+'-label').html(boxLocation);
             });
             errorText=undefined;
