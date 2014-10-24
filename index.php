@@ -23,7 +23,7 @@ function getScreens() {
     }
 }
 
-if ( !isset($_GET['screen']) || !is_file($_GET['screen']."_screen.php") ) {
+if ( !isset($_GET['screen']) || !is_file(CONFIG_DIR.'/'.$_GET['screen']."_screen.php") ) {
     getScreens();
     exit;
 }
