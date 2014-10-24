@@ -58,11 +58,11 @@ function getSensors() {
                 // Sensor already exists on the screen so we are just going to update it's value.
                 $("#"+idname).html(boxVal + boxSuf);
                 $("#"+idname).css('background-color', boxColor);
-                $("#"+idname).css("color", isDark($("#"+idname).css("background-color")) ? 'white' : 'black');
+                $("#"+idname).css("color", textColor(boxColor));
                 // Update value for mobile divs
                 $("#"+idname+'-data').html(boxVal+boxSuf);
                 $("#"+idname+'-data').css('background-color', boxColor);
-                $("#"+idname+'-data').css("color", isDark($("#"+idname+'-data').css("background-color")) ? 'white' : 'black');
+                $("#"+idname+'-data').css("color", textColor(boxColor));
                 $("#"+idname+'-label').html(boxLocation);
             });
             errorText=undefined;
@@ -118,14 +118,32 @@ function setupScreen() {
 }
 
 /**
- * This function determins if the input color is dark or not
+ * This function determins if the input color is dark or not and returns the correct text color
  * @param color
- * @returns {boolean}
+ * @returns textColorInRGB
  */
-function isDark( color ) {
+function textColor( inColor ) {
+    var color = new RGBColor(inColor);
+    var foreColor = "#000000";
+    if (color.ok) { // 'ok' is true when the parsing was a success
+        var brightness = calcBrightness(color);
+        var foreColor = (brightness < 130) ? "#FFFFFF" : "#000000";
+    }
+    return foreColor;
+}
+
+/*
     var match = /rgb\((\d+).*?(\d+).*?(\d+)\)/.exec(color);
     return parseFloat(match[1])
         + parseFloat(match[2])
         + parseFloat(match[3])
         < 3 * 256 / 2; // r+g+b should be less than half of max (3 * 256)
+}
+*/
+// http://alienryderflex.com/hsp.html
+function calcBrightness(color) {
+    return Math.sqrt(
+        color.r * color.r * .299 +
+            color.g * color.g * .587 +
+            color.b * color.b * .114);
 }

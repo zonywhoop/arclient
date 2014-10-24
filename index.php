@@ -23,7 +23,7 @@ function getScreens() {
     }
 }
 
-if ( !isset($_GET['screen']) && is_file($_GET['screen']."_screen.php") ) {
+if ( !isset($_GET['screen']) || !is_file($_GET['screen']."_screen.php") ) {
     getScreens();
     exit;
 }
@@ -46,6 +46,7 @@ $curScreen = $_GET['screen'];
     <script src="js/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/rgbcolor.js"></script>
     <link href="css/mon.css" rel="stylesheet">
     <script src="js/mon.js"></script>
     <?php if (is_file("css/".$curScreen.".css") ) { echo "<link href=\"css/".$curScreen.".css\" rel=\"stylesheet\">\n"; } ?>
