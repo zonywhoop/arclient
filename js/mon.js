@@ -5,6 +5,7 @@
 // Define global variable to hold our screenConfig
 screenConfig=undefined;
 errorText=undefined;
+editPassword=undefined;
 
 $(function() {
     // Make our updatestatus bar draggable
@@ -37,8 +38,6 @@ function getSensors() {
                         '<div id="'+idname+'-graph" class="panel-body" style="display:none" ><img src=\'calls.php?screen='+screenName+'&cmd=fetchGraph&sensor='+val['i']+'\'></div>'+
                         '<div id="'+idname+'-data" class="panel-body data-mobile">'+boxVal + boxSuf+'</div>'+
                         '</div>');
-                    // Enable jquery-ui draggable for big "map" view
-                    $("#"+idname).draggable({containment: "parent"}, {delay: 300}, {stop: function (event, ui) { handleDrag(event, ui); }});
                     // Enable jquery-toggle for mobile div view
                     $("#"+idname+'-label').click(function() { $("#"+idname+'-graph').toggle(); });
                     // if an existing location definition exists then apply it to the new map div
@@ -81,11 +80,16 @@ function getSensors() {
         });
 }
 
+/**
+ * Handle element drag events.
+ * @param event
+ * @param ui
+ */
 function handleDrag(event, ui) {
     var sensorID = ui.helper[0].id;
     var sensorLeft = ui.position.left;
     var sensorTop = ui.position.top;
-    $.getJSON('calls.php/?cmd=saveLocation&screen='+screenName+'&sensor='+sensorID+'&left='+sensorLeft+'&top='+sensorTop);
+    $.getJSON('calls.php/?cmd=saveLocation&screen='+screenName+'&sensor='+sensorID+'&left='+sensorLeft+'&top='+sensorTop+'&password='+editPassword);
 }
 
 /**
@@ -132,18 +136,44 @@ function textColor( inColor ) {
     return foreColor;
 }
 
-/*
-    var match = /rgb\((\d+).*?(\d+).*?(\d+)\)/.exec(color);
-    return parseFloat(match[1])
-        + parseFloat(match[2])
-        + parseFloat(match[3])
-        < 3 * 256 / 2; // r+g+b should be less than half of max (3 * 256)
-}
-*/
+/**
+ * Calculates the brightness of the input color and returns it's value.. a color < 130 is considered dark.
+ * @param color
+ * @returns {number}
+ */
 // http://alienryderflex.com/hsp.html
 function calcBrightness(color) {
     return Math.sqrt(
         color.r * color.r * .299 +
             color.g * color.g * .587 +
             color.b * color.b * .114);
+}
+
+/**
+ * Toggle the display of the password entry dialog
+ */
+function toggleEditing() {
+    if (editPassword !== undefined ) {
+        editPassword = undefined;
+        $("#enableEdit").removeClass('btn-danger').addClass('btn-default');
+        // Disable dragging
+        $(".boxes.disable").draggable('disable');
+        $("#enableEdit").html("Enable Editing");
+    } else {
+        $("#enableEdit-form").dialog( "open" );
+    }
+}
+
+/**
+ * Sets the password from the dialog, closes the dialog, and then changes the button wording and color.
+ * @returns {boolean}
+ */
+function enableEditing() {
+    editPassword = $("#editPasswordEntry").val();
+    $("#enableEdit-form").dialog( "close" );
+    $("#enableEdit").removeClass('btn-default').addClass('btn-danger');
+    $("#enableEdit").html("Disable Editing");
+    // Enable jquery-ui draggable for big "map" view
+    $(".boxes").draggable({containment: "parent"}, {delay: 300}, {stop: function (event, ui) { handleDrag(event, ui); }});
+    return true;
 }

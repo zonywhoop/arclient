@@ -67,6 +67,38 @@ $curScreen = $_GET['screen'];
                 <span id="statusText" class="statusText">Never Updated!</span>
             </div>
         </div>
+        <div id="enableEdit-form" title="Enable Editing">
+            <p class="dialogNotes">Changes will not be saved unless the server accepts the entered passwrd.</p>
+            <form>
+                <fieldset>
+                    <label for="password">Password</label>
+                    <input type="password" name="editPasswordEntry" id="editPasswordEntry" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+                    <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                </fieldset>
+            </form>
+        </div>
+        <div id="editDiv"><button type="button" id="enableEdit" class="btn btn-primary" onclick="javascript:toggleEditing();">Enable Editing</button></div>
+        <script>
+            dialog = $( "#enableEdit-form" ).dialog({
+                autoOpen: false,
+                height: 200,
+                width: 350,
+                modal: true,
+                buttons: {
+                    "Enable Editing": enableEditing,
+                    Cancel: function() {
+                        dialog.dialog( "close" );
+                    }
+                },
+                close: function() {
+                    form[ 0 ].reset();
+                }
+            });
+            form = dialog.find( "form" ).on( "submit", function( event ) {
+                event.preventDefault();
+                enableEditing();
+            });
+        </script>
     </div>
     <div id="data-mobile">
         <div class="page-header">

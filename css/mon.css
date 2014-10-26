@@ -38,6 +38,16 @@
     .data-mobile {
         color: #ffffff;
     }
+    #editDiv {
+        z-index: 4;
+        position: absolute;
+        bottom: -50px;
+    }
+    .dialogNotes {
+        border: 1px solid transparent;
+        padding: 0.3em;
+        font-size: 8pt;
+    }
 }
 
 @media (max-width: 480px), handheld and (orientation: portrait) {

@@ -23,6 +23,9 @@ if ( !isset($_REQUEST['screen']) ) {
     exit;
 }
 
+if ( !isset($editPasswords) || !is_array($editPasswords) )
+    $editPasswords = array();
+
 switch ( $_REQUEST['cmd'] ) {
     case "saveLocation":
         if ( !isset($_GET['sensor']) || !isset($_GET['top']) || !isset($_GET['left']) ) {
@@ -30,9 +33,19 @@ switch ( $_REQUEST['cmd'] ) {
             exit;
         }
         $screenName = $_GET['screen'];
-        $screenConfig = json_decode(getScreenConfig($screenName), true);
-        $screenConfig['locations'][$_GET['sensor']] = array('top' => $_GET['top'], 'left' => $_GET['left']);
-        saveScreenConfig($screenName, json_encode($screenConfig));
+        $allowedToEdit = true;
+        if ( array_key_exists($screenName, $editPasswords) ) {
+            if ( isset($_GET['password']) && ($_GET['password'] == $editPasswords[$screenName]) ) {
+                $allowedToEdit = true;
+            } else {
+                $allowedToEdit = false;
+            }
+        }
+        if ( $allowedToEdit == true ) {
+            $screenConfig = json_decode(getScreenConfig($screenName), true);
+            $screenConfig['locations'][$_GET['sensor']] = array('top' => $_GET['top'], 'left' => $_GET['left']);
+            saveScreenConfig($screenName, json_encode($screenConfig));
+        }
         break;
     case "get":
         $screenConfig = getScreenConfig($_GET['screen']);
